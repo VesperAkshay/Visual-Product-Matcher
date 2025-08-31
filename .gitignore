@@ -333,6 +333,8 @@ thumbnails/
 !frontend/public/*.svg
 !frontend/public/*.png
 !frontend/public/*.jpg
+!frontend/lib/
+!frontend/public/
 
 # Video files
 *.mp4
