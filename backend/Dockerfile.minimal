@@ -1,0 +1,27 @@
+# Minimal Dockerfile for Testing Cloud Run Deployment
+
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Install minimal system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
+WORKDIR /app
+
+# Install minimal Python dependencies
+RUN pip install --no-cache-dir flask flask-cors gunicorn
+
+# Copy minimal app
+COPY app_minimal.py .
+
+# Expose port
+EXPOSE 8080
+
+# Run the minimal application
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app_minimal:app
